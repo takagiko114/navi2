@@ -1,0 +1,170 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta http-equiv="Content-Security-Policy" content="default-src * data: gap: https://ssl.gstatic.com; style-src * 'unsafe-inline'; script-src * 'unsafe-inline' 'unsafe-eval'">
+  <script src="components/loader.js"></script>
+  <script src="lib/angular/angular.min.js"></script>
+  <script src="lib/onsenui/js/onsenui.min.js"></script>
+  <script src="lib/onsenui/js/angular-onsenui.min.js"></script>
+  <script src="lib/dao.js"></script>
+  <script src="lib/log.js"></script>
+  <script src="lib/test.js"></script>
+
+  <link rel="stylesheet" href="components/loader.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsenui.css">
+  <link rel="stylesheet" href="lib/onsenui/css/onsen-css-components.css">
+  <link rel="stylesheet" href="css/style.css">
+
+  <script>
+    var module = ons.bootstrap();
+
+    module.controller('AppController', function() {
+        this.pushes = 0;
+        this.pops = 0;
+      });
+    ons.ready(function() {
+        console.log("Onsen UI is ready!");
+    });
+    module.controller('AppController', function($scope) {
+        ons.createPopover('popover.html').then(function(popover) {
+            $scope.popover = popover;
+        });
+        $scope.show = function(e) {
+            $scope.popover.show(e);
+        };
+    });
+  </script>
+  
+  <script type="text/ons-template" id="popover.html">
+      <ons-popover direction="up down" cancelable>
+        <div style="text-align: center; opacity: 0.5;">
+          <p>拡張機能はここに実装予定</p>
+          <p><small>どこかをタップすると閉じます。</small></p>
+        </div>
+      </ons-popover>
+  </script>
+
+</head>
+<body>
+
+<!-- ============================================================================================ -->
+<!-- _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/ -->
+<!--                　　　　　　　　  　　        　　    　　                                    -->
+<!--                　　　　　　　　  　 navigator　　    　　                                    -->
+<!--                　　　　　　　　  　　        　　    　　                                    -->
+<!-- _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/ -->
+<!-- ============================================================================================ -->
+
+  <ons-navigator
+    var="navi"
+    page="list.html"
+    ng-controller="AppController as app"
+    ons-postpush="app.pushes = app.pushes + 1"
+    ons-postpop="app.pops = app.pops + 1">
+  </ons-navigator>
+
+<!-- ============================================================================================ -->
+<!-- _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/ -->
+<!--                　　　　　　　　  　　        　　    　　                                    -->
+<!--                　　　　　　　　一　　覧　　画　　面  　　                                    -->
+<!--                　　　　　　　　  　　        　　    　　                                    -->
+<!--                　　　　　　　　  　 list.html　　    　　                                    -->
+<!--                　　　　　　　　  　　        　　    　　                                    -->
+<!-- _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/ -->
+<!-- ============================================================================================ -->
+
+<ons-template id="list.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+                <ons-button ng-click="navi.pushPage('new.html')">new</ons-button>
+            </div>
+            <div class="center" name="title">いちらん</div>
+
+            <div class="right">
+                <ons-button id="top-right" ng-click="show('#top-right')"">
+                    <i class="ion-navicon" 
+                       style="font-size:32px; vertical-align:-6px;">
+                    </i>
+                </ons-button>
+            </div>
+    
+        </ons-toolbar>
+                
+        <div id="listInnerHtml">
+
+  <ons-list>
+    <ons-list-item tappable>
+      <label class="left">
+        <ons-radio name="color" input-id="radio-1" checked></ons-radio>
+      </label>
+      <label for="radio-1" class="center">
+        さいと1
+      </label>
+    </ons-list-item>
+    <ons-list-item tappable>
+      <label class="left">
+        <ons-radio name="color" input-id="radio-2"></ons-radio>
+      </label>
+      <label for="radio-2" class="center">
+        さいと2
+      </label>
+    </ons-list-item>
+    <ons-list-item tappable>
+      <label class="left">
+        <ons-radio name="color" input-id="radio-3"></ons-radio>
+      </label>
+      <label for="radio-3" class="center">
+        さいと3
+      </label>
+    </ons-list-item>
+  </ons-list>
+  
+        </div>
+
+        <ons-bottom-toolbar>
+            <button class="button--cta" onclick="testID()">　　　　ID　　　　</button>　
+            <button class="button--cta" onclick="testPW()">　　　　PW　　　　</button>
+        </ons-bottom-toolbar>
+
+    </ons-page>
+</ons-template>
+
+<!-- ============================================================================================ -->
+<!-- _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/ -->
+<!--                　　　　　　　　  　　        　　    　　                                    -->
+<!--                　　　　　　　　新　　規　　画　　面  　　                                    -->
+<!--                　　　　　　　　  　　        　　    　　                                    -->
+<!--                　　　　　　　　  　　new.html　　    　　                                    -->
+<!--                　　　　　　　　  　　        　　    　　                                    -->
+<!-- _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/ -->
+<!-- ============================================================================================ -->
+
+<ons-template id="new.html">
+    <ons-page>
+        <ons-toolbar>
+            <div class="left">
+              <ons-back-button>Back</ons-back-button>
+            </div>
+            <div class="center">しんきとうろく</div>
+        </ons-toolbar>
+
+        <section style="padding: 10px">
+        <div style="text-align: center; margin-top: 50px;">
+            <p> <ons-input id="siteName" modifier="underbar" placeholder="サイト名" float></ons-input></p>
+            <p> <ons-input id="accountName" modifier="underbar" placeholder="アカウント名" float></ons-input></p>
+            <p> <ons-input id="accountID" modifier="underbar" placeholder="ID" float></ons-input></p>
+            <p> <ons-input id="accountPW" modifier="underbar" placeholder="PW" float></ons-input></p>
+        </div>
+        </section>
+
+        <ons-bottom-toolbar>
+            <ons-button modifier="large--cta" onclick="testInsert()">登録</ons-button>
+        </ons-bottom-toolbar>
+    </ons-page>
+</ons-template>
+
+</body>
+</html>
