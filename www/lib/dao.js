@@ -46,27 +46,27 @@ function errorCB(err) {
     console.log("Error occured while executing SQL: "+err.code);
 }
 
-function querySuccess(tx, results) {
-    console.log(getTime() + " querySuccess");
-    var len = results.rows.length;
-/*
-    var ct;
-    var id;
-    var data;
-*/
-    console.log("There are " + len + " rows of records in the database.");
-    /*
-    for (var i=0; i<len; i++){
-        ct = results.rows.item(i).ct;
-        id = results.rows.item(i).id;
-        data = results.rows.item(i).data;
-        addLine(ct, id, data);
-        
-        console.log(ct + " " + id + " " + data);
-    }
-    */    
-//    addbutton();
-}
+//function querySuccess(tx, results) {
+//    console.log(getTime() + " querySuccess");
+//    var len = results.rows.length;
+///*
+//    var ct;
+//    var id;
+//    var data;
+//*/
+//    console.log("There are " + len + " rows of records in the database.");
+//    /*
+//    for (var i=0; i<len; i++){
+//        ct = results.rows.item(i).ct;
+//        id = results.rows.item(i).id;
+//        data = results.rows.item(i).data;
+//        addLine(ct, id, data);
+//        
+//        console.log(ct + " " + id + " " + data);
+//    }
+//    */    
+////    addbutton();
+//}
 
 // ============================================================================================ -->
 // _/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/_/ -->
@@ -109,17 +109,19 @@ function insertQuery(tx){
 function querySuccess(tx, results) {
     console.log(getTime() + " querySuccess");
     var len = results.rows.length;
+    var id;
     var siteName;
     var accountName;
     var accountID;
     var accountPW;
     console.log("There are " + len + " rows of records in the database.");
     for (var i=0; i<len; i++){
+        id = results.rows.item(i).id;
         siteName = results.rows.item(i).site_name;
         accountName = results.rows.item(i).account_name;
         accountID = results.rows.item(i).account_id;
         accountPW = results.rows.item(i).account_pw;
-//        addLine(siteName, accountName, accnoutID, accountPW);
+        addLine(id, siteName, accountName, accountID, accountPW);
         console.log("siteName   : " + siteName);
         console.log("accountName: " + accountName);
         console.log("accountID  : " + accountID);
